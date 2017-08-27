@@ -27,11 +27,11 @@ using Windows.UI.Xaml.Controls;
 namespace IoTCoreDrivers
 	{
 
-    //  #   #   ###   #  #   #       ####    ###    ###    #####
-    //  ## ##  #   #  #  ##  #       #   #  #   #  #   #   #
-    //  # # #  #####  #  # # #  ###  ####   #####  #       ###
-    //  #   #  #   #  #  #  ##       #      #   #  #   ##  #
-    //  #   #  #   #  #  #   #       #      #   #   ### #  #####
+	//  #   #   ###   #  #   #       ####    ###    ###    #####
+	//  ## ##  #   #  #  ##  #       #   #  #   #  #   #   #
+	//  # # #  #####  #  # # #  ###  ####   #####  #       ###
+	//  #   #  #   #  #  #  ##       #      #   #  #   ##  #
+	//  #   #  #   #  #  #   #       #      #   #   ### #  #####
 
 	//*********************************************************************************************
 	// Classe MainPage
@@ -42,11 +42,11 @@ namespace IoTCoreDrivers
 	/// 
 	/// </summary>
 	//---------------------------------------------------------------------------------------------
-    public sealed partial class MainPage : Page
+	public sealed partial class MainPage : Page
 		{
-        public MainPage()
+		public MainPage()
 			{
-            this.InitializeComponent();
+			this.InitializeComponent();
 
 			this.InitDrivers ();
 			}
