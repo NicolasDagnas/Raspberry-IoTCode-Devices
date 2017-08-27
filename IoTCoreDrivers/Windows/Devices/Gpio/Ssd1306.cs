@@ -30,13 +30,13 @@ using Windows.Devices.Enumeration;
 // Début du bloc "Windows.Devices.Gpio"
 //*************************************************************************************************
 namespace Windows.Devices.Gpio
-    {
+	{
 
-    //   ####   ####  ####     #   ###    ###    ####
-    //  #      #      #   #   ##  #   #  #   #  #
-    //   ###    ###   #   #  # #     #   #   #   ###
-    //      #      #  #   #    #  #   #  #   #  #   #
-    //  ####   ####   ####     #   ###    ###    ###
+	//   ####   ####  ####     #   ###    ###    ####
+	//  #      #      #   #   ##  #   #  #   #  #
+	//   ###    ###   #   #  # #     #   #   #   ###
+	//      #      #  #   #    #  #   #  #   #  #   #
+	//  ####   ####   ####     #   ###    ###    ###
 
 	//*********************************************************************************************
 	// Classe Ssd1308
@@ -47,16 +47,16 @@ namespace Windows.Devices.Gpio
 	/// Gère un éceanr led Kuman 168*64
 	/// </summary>
 	//---------------------------------------------------------------------------------------------
-    public static class Ssd1308
-        {
+	public static class Ssd1308
+		{
 	    //-----------------------------------------------------------------------------------------
-        // Section des Constantes
+		// Section des Constantes
 	    //-----------------------------------------------------------------------------------------
-        // Largeur de l'écran
-        private const UInt32 SCREEN_WIDTH_PX    = 128;
+		// Largeur de l'écran
+		private const UInt32 SCREEN_WIDTH_PX    = 128;
 	    //-----------------------------------------------------------------------------------------
-        // Hauteur de l'écran
-        private const UInt32 SCREEN_HEIGHT_PX   = 64;
+		// Hauteur de l'écran
+		private const UInt32 SCREEN_HEIGHT_PX   = 64;
 	    //-----------------------------------------------------------------------------------------
 	    // Nombre de pages
 	    private const UInt32 SCREEN_PAGES_COUNT = 8;
@@ -68,43 +68,43 @@ namespace Windows.Devices.Gpio
 	    //-----------------------------------------------------------------------------------------
 	    // Section des Buffers
 	    //-----------------------------------------------------------------------------------------
-        // Buffer interne en 2 dimensions
-        static bool[,] DisplayBuffer           = new bool[SCREEN_WIDTH_PX, SCREEN_HEIGHT_PX];
+		// Buffer interne en 2 dimensions
+		static bool[,] DisplayBuffer           = new bool[SCREEN_WIDTH_PX, SCREEN_HEIGHT_PX];
 	    //-----------------------------------------------------------------------------------------
-        // A temporary buffer used to prepare graphics data for sending over i2c          */
-        static byte[ ] SerializedDisplayBuffer = new byte[SCREEN_WIDTH_PX * SCREEN_HEIGHT_PAGE];
+		// A temporary buffer used to prepare graphics data for sending over i2c          */
+		static byte[ ] SerializedDisplayBuffer = new byte[SCREEN_WIDTH_PX * SCREEN_HEIGHT_PAGE];
 	    //-----------------------------------------------------------------------------------------
 
 	    //-----------------------------------------------------------------------------------------
 	    // Section des Commandes
 	    //-----------------------------------------------------------------------------------------
-        // Turns the display off
-        private static readonly byte[] CMD_DISPLAY_OFF   = { 0xAE };
+		// Turns the display off
+		private static readonly byte[] CMD_DISPLAY_OFF   = { 0xAE };
 	    //-----------------------------------------------------------------------------------------
-        // Turns the display on
-        private static readonly byte[] CMD_DISPLAY_ON    = { 0xAF };
+		// Turns the display on
+		private static readonly byte[] CMD_DISPLAY_ON    = { 0xAF };
 	    //-----------------------------------------------------------------------------------------
-        // Turn on internal charge pump to supply power to display
-        private static readonly byte[] CMD_CHARGEPUMP_ON = { 0x8D, 0x14 };
+		// Turn on internal charge pump to supply power to display
+		private static readonly byte[] CMD_CHARGEPUMP_ON = { 0x8D, 0x14 };
 	    //-----------------------------------------------------------------------------------------
-        // Horizontal memory mode
-        private static readonly byte[] CMD_MEMADDRMODE   = { 0x20, 0x00 };
+		// Horizontal memory mode
+		private static readonly byte[] CMD_MEMADDRMODE   = { 0x20, 0x00 };
 	    //-----------------------------------------------------------------------------------------
-        // Remaps the segments, which has the effect of mirroring the display horizontally
-        private static readonly byte[] CMD_SEGREMAP      = { 0xA1 };
+		// Remaps the segments, which has the effect of mirroring the display horizontally
+		private static readonly byte[] CMD_SEGREMAP      = { 0xA1 };
 	    //-----------------------------------------------------------------------------------------
-        // Set the COM scan direction to inverse, which flips the screen vertically
-        private static readonly byte[] CMD_COMSCANDIR    = { 0xC8 };
+		// Set the COM scan direction to inverse, which flips the screen vertically
+		private static readonly byte[] CMD_COMSCANDIR    = { 0xC8 };
 	    //-----------------------------------------------------------------------------------------
-        // Reset the column address pointer
-        private static readonly byte[] CMD_RESETCOLADDR  = { 0x21, 0x00, 0x7F };
+		// Reset the column address pointer
+		private static readonly byte[] CMD_RESETCOLADDR  = { 0x21, 0x00, 0x7F };
 	    //-----------------------------------------------------------------------------------------
-        // Reset the page address pointer
-        private static readonly byte[] CMD_RESETPAGEADDR = { 0x22, 0x00, 0x07 };
+		// Reset the page address pointer
+		private static readonly byte[] CMD_RESETPAGEADDR = { 0x22, 0x00, 0x07 };
 	    //-----------------------------------------------------------------------------------------
 
 	    //-----------------------------------------------------------------------------------------
-        // Section des Attributs
+		// Section des Attributs
 	    //-----------------------------------------------------------------------------------------
 		private static bool      DevicePresenceException = false;
 		private static bool      Initializing            = false;
@@ -113,11 +113,11 @@ namespace Windows.Devices.Gpio
 		private static DateTime  LastCheck               = DateTime.MinValue;
 	    //-----------------------------------------------------------------------------------------
 
-    	//*****************************************************************************************
+		//*****************************************************************************************
 		#region // Section des Procédures Privées
 		//-----------------------------------------------------------------------------------------
 
-    	//*****************************************************************************************
+		//*****************************************************************************************
 		/// <summary>
 		/// Send graphics data to the screen.
 		/// </summary>
@@ -138,9 +138,9 @@ namespace Windows.Devices.Gpio
 				}
 			//-------------------------------------------------------------------------------------
 			}
-    	//*****************************************************************************************
+		//*****************************************************************************************
 
-    	//*****************************************************************************************
+		//*****************************************************************************************
 		/// <summary>
 		/// Send commands to the screen.
 		/// </summary>
@@ -161,11 +161,11 @@ namespace Windows.Devices.Gpio
 				}
 			//-------------------------------------------------------------------------------------
 			}
-    	//*****************************************************************************************
+		//*****************************************************************************************
 
 		//-----------------------------------------------------------------------------------------
 		#endregion
-    	//*****************************************************************************************
+		//*****************************************************************************************
 
 		//*****************************************************************************************
 		/// <summary>
@@ -174,7 +174,7 @@ namespace Windows.Devices.Gpio
 		//-----------------------------------------------------------------------------------------
 		public static async Task<bool> Initialize ()
 			{
-            //-------------------------------------------------------------------------------------
+			//-------------------------------------------------------------------------------------
 			if ( ! Initializing && I2cCardDevice == null && ! DevicePresenceException )
 				{
 	            //---------------------------------------------------------------------------------
@@ -191,8 +191,8 @@ namespace Windows.Devices.Gpio
 
 					I2cConnectionSettings ConnSettings = new I2cConnectionSettings ( 0x3C );
 
-                    ConnSettings.BusSpeed    = I2cBusSpeed.FastMode;
-                    ConnSettings.SharingMode = I2cSharingMode.Shared;
+					ConnSettings.BusSpeed    = I2cBusSpeed.FastMode;
+					ConnSettings.SharingMode = I2cSharingMode.Shared;
 
 					I2cCardDevice = await I2cDevice.FromIdAsync ( DeviceIds[0].Id, ConnSettings );
 		            //-----------------------------------------------------------------------------
@@ -229,13 +229,13 @@ namespace Windows.Devices.Gpio
 				finally { Initializing = false; }
 	            //---------------------------------------------------------------------------------
 				}
-            //-------------------------------------------------------------------------------------
+			//-------------------------------------------------------------------------------------
 
-            //-------------------------------------------------------------------------------------
+			//-------------------------------------------------------------------------------------
 			return true;
-            //-------------------------------------------------------------------------------------
+			//-------------------------------------------------------------------------------------
 			}
-    	//*****************************************************************************************
+		//*****************************************************************************************
 
 		//*****************************************************************************************
 		/// <summary>
@@ -244,7 +244,7 @@ namespace Windows.Devices.Gpio
 		//-----------------------------------------------------------------------------------------
 		public static async void InitializeAsync ()
 			{
-            //-------------------------------------------------------------------------------------
+			//-------------------------------------------------------------------------------------
 			if ( ! Initializing && I2cCardDevice == null && ! DevicePresenceException )
 				{
 	            //---------------------------------------------------------------------------------
@@ -261,8 +261,8 @@ namespace Windows.Devices.Gpio
 
 					I2cConnectionSettings ConnSettings = new I2cConnectionSettings ( 0x3C );
 
-                    ConnSettings.BusSpeed    = I2cBusSpeed.FastMode;
-                    ConnSettings.SharingMode = I2cSharingMode.Shared;
+					ConnSettings.BusSpeed    = I2cBusSpeed.FastMode;
+					ConnSettings.SharingMode = I2cSharingMode.Shared;
 
 					I2cCardDevice = await I2cDevice.FromIdAsync ( DeviceIds[0].Id, ConnSettings );
 		            //-----------------------------------------------------------------------------
@@ -299,61 +299,61 @@ namespace Windows.Devices.Gpio
 				finally { Initializing = false; }
 	            //---------------------------------------------------------------------------------
 				}
-            //-------------------------------------------------------------------------------------
+			//-------------------------------------------------------------------------------------
 			}
-    	//*****************************************************************************************
+		//*****************************************************************************************
 
-    	//*****************************************************************************************
+		//*****************************************************************************************
 		/// <summary>
 		/// Indique si la puce de gestion de l'heure est présente.
 		/// </summary>
 	    //-----------------------------------------------------------------------------------------
 		public static bool DevicePresent { get { return ( I2cCardDevice != null ); } }
-    	//*****************************************************************************************
-    	
-    	//*****************************************************************************************
-    	private static void TogglePixel ( uint X, uint Y, bool Value )
-    		{
-    		if ( X >= SCREEN_WIDTH_PX || Y >= SCREEN_HEIGHT_PX ) return;
-    		
-    		if ( DisplayBuffer[X, Y] != Value )
+		//*****************************************************************************************
+		
+		//*****************************************************************************************
+		private static void TogglePixel ( uint X, uint Y, bool Value )
+			{
+			if ( X >= SCREEN_WIDTH_PX || Y >= SCREEN_HEIGHT_PX ) return;
+			
+			if ( DisplayBuffer[X, Y] != Value )
 				SegmentsUpdated = true;
-    		
-    		DisplayBuffer[X, Y] = Value;
-    		}
-    	//*****************************************************************************************
-    	
-    	//*****************************************************************************************
-    	public static void DrawHLine ( uint X, uint Y, uint Width )
-    		{
-    		for ( uint _X = X ; _X < SCREEN_WIDTH_PX && _X < X + Width ; _X ++ )
-    			TogglePixel ( _X, Y, true );
-    		}
-    	//*****************************************************************************************
+			
+			DisplayBuffer[X, Y] = Value;
+			}
+		//*****************************************************************************************
+		
+		//*****************************************************************************************
+		public static void DrawHLine ( uint X, uint Y, uint Width )
+			{
+			for ( uint _X = X ; _X < SCREEN_WIDTH_PX && _X < X + Width ; _X ++ )
+				TogglePixel ( _X, Y, true );
+			}
+		//*****************************************************************************************
 
-    	//*****************************************************************************************
-    	public static void DrawVLine ( uint X, uint Y, uint Height )
-    		{
-    		for ( uint _Y = Y ; _Y < SCREEN_HEIGHT_PX && _Y < Y + Height ; _Y ++ )
-    			TogglePixel ( X, _Y, true );
-    		}
-    	//*****************************************************************************************
+		//*****************************************************************************************
+		public static void DrawVLine ( uint X, uint Y, uint Height )
+			{
+			for ( uint _Y = Y ; _Y < SCREEN_HEIGHT_PX && _Y < Y + Height ; _Y ++ )
+				TogglePixel ( X, _Y, true );
+			}
+		//*****************************************************************************************
 
-    	//*****************************************************************************************
-    	public static void DrawRectangle ( uint X, uint Y, uint Width, uint Height )
-    		{
-    		for ( uint _X = X ; _X < SCREEN_WIDTH_PX && _X < X + Width ; _X ++ )
+		//*****************************************************************************************
+		public static void DrawRectangle ( uint X, uint Y, uint Width, uint Height )
+			{
+			for ( uint _X = X ; _X < SCREEN_WIDTH_PX && _X < X + Width ; _X ++ )
 	    		for ( uint _Y = Y ; _Y < SCREEN_HEIGHT_PX && _Y < Y + Height ; _Y ++ )
 					TogglePixel ( _X, _Y, true );
-    		}
-    	//*****************************************************************************************
+			}
+		//*****************************************************************************************
 
-    	//*****************************************************************************************
+		//*****************************************************************************************
 		public static void ClearDisplay ()
 			{ Array.Clear ( DisplayBuffer, 0, DisplayBuffer.Length ); }
-    	//*****************************************************************************************
+		//*****************************************************************************************
 
-    	//*****************************************************************************************
+		//*****************************************************************************************
 		public static void DrawChar ( char Character, DisplayFont Font, uint X, uint Y )
 			{
 			FontCharacterDescriptor Cd = ( Font != null ) ? Font.GetChar ( Character ) : null;
@@ -381,9 +381,9 @@ namespace Windows.Devices.Gpio
 					}
 				}
 			}
-    	//*****************************************************************************************
+		//*****************************************************************************************
 
-    	//*****************************************************************************************
+		//*****************************************************************************************
 		/// <summary>
 		/// Writes the Display Buffer out to the physical screen for display.
 		/// </summary>
@@ -420,9 +420,9 @@ namespace Windows.Devices.Gpio
 			SegmentsUpdated = false;
 			//-------------------------------------------------------------------------------------
 			}
-    	//*****************************************************************************************
+		//*****************************************************************************************
 
-        }
+		}
 	//---------------------------------------------------------------------------------------------
 	#endregion
 	//*********************************************************************************************
