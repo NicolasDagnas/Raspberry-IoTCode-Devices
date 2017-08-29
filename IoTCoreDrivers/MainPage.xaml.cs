@@ -16,6 +16,7 @@
 using System;
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 using Windows.Devices.Gpio;
+using Windows.Devices.Media;
 using Windows.UI.Xaml.Controls;
 //-------------------------------------------------------------------------------------------------
 #endregion
@@ -74,10 +75,10 @@ namespace IoTCoreDrivers
 			Ssd1308.DrawVLine ( 127,  0, 64  );
 			Ssd1308.DrawHLine (   0, 63, 128 );
 			
-			Ssd1308.DrawChar ( 'M', DisplayFontSize11.Font,  87,  3 );
-			Ssd1308.DrawChar ( 'A', DisplayFontSize11.Font,  97,  3 );
-			Ssd1308.DrawChar ( 'N', DisplayFontSize11.Font, 107,  3 );
-			Ssd1308.DrawChar ( 'U', DisplayFontSize11.Font, 117,  3 );
+			Ssd1308.DrawChar ( 'M', DisplayFonts.System7pt,  87,  3 );
+			Ssd1308.DrawChar ( 'A', DisplayFonts.System7pt,  97,  3 );
+			Ssd1308.DrawChar ( 'N', DisplayFonts.System7pt, 107,  3 );
+			Ssd1308.DrawChar ( 'U', DisplayFonts.System7pt, 117,  3 );
 			}
 		}
 	//---------------------------------------------------------------------------------------------
